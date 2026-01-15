@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Stats | Zen GM Hockey</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- NAV BAR -->
+  <div class="navbar">
+    <a href="index.html">Home</a>
+    <a href="standings.html">Standings</a>
+    <a href="teams.html">Teams</a>
+    <a href="stats.html" class="active">Stats</a>
+  </div>
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <h1>Player Stats</h1>
+    <input type="file" id="leagueFile" accept=".json">
+  </div>
+
+  <!-- SKATERS -->
+  <section>
+    <h2>Skaters</h2>
+    <div id="skaterStats">
+      <!-- JS renders table here -->
+    </div>
+  </section>
+
+  <!-- GOALIES -->
+  <section>
+    <h2>Goalies</h2>
+    <div id="goalieStats">
+      <!-- JS renders table here -->
+    </div>
+  </section>
+
+  <!-- SCRIPTS -->
+  <script src="js/upload.js"></script>
+  <script src="js/parser.js"></script>
+  <script src="js/render.js"></script>
+
+</body>
+</html>
