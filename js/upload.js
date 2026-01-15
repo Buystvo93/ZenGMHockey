@@ -1,5 +1,7 @@
 const input = document.getElementById("leagueFile");
 
+let leagueData = null;
+
 if (input) {
   input.addEventListener("change", e => {
     const file = e.target.files[0];
@@ -7,15 +9,9 @@ if (input) {
 
     const reader = new FileReader();
     reader.onload = () => {
-      localStorage.setItem("leagueData", reader.result);
-      loadLeague(JSON.parse(reader.result));
+      leagueData = JSON.parse(reader.result);
+      loadLeague(leagueData);
     };
     reader.readAsText(file);
   });
-}
-
-// Auto-load if already uploaded
-const saved = localStorage.getItem("leagueData");
-if (saved) {
-  loadLeague(JSON.parse(saved));
 }
