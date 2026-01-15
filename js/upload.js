@@ -4,9 +4,9 @@ document.getElementById("leagueFile").addEventListener("change", e => {
 
   const reader = new FileReader();
   reader.onload = () => {
-    const leagueData = JSON.parse(reader.result);
-    window.leagueData = leagueData;
-    loadLeague(leagueData);
+  localStorage.setItem("leagueData", reader.result);
+  loadLeague(JSON.parse(reader.result));
   };
+
   reader.readAsText(file);
 });
