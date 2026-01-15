@@ -77,8 +77,9 @@ function renderSkaterStats(data) {
         <th>G</th>
         <th>A</th>
         <th>PTS</th>
-        <th>+/-</th>
+        <th>HITS</th>
         <th>PIM</th>
+        <th>SHOTS</th>
       </tr>
   `;
 
@@ -96,8 +97,9 @@ function renderSkaterStats(data) {
         <td>${s.g}</td>
         <td>${s.a}</td>
         <td>${s.pts}</td>
-        <td>${s.pm}</td>
+        <td>${s.hits}</td>
         <td>${s.pim}</td>
+        <td>${s.shots}</td>
       </tr>
     `;
   });
