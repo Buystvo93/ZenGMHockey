@@ -98,7 +98,7 @@ function renderGoalieStats(data) {
   const container = document.getElementById("goalieStats");
   if (!container) return;
 
-  const goalies = data.players.filter(p => p.gpG);
+  const goalies = data.players.filter(p => p.pos === "G");
 
   let html = `
     <table class="stats-table">
@@ -115,16 +115,19 @@ function renderGoalieStats(data) {
 
   goalies.forEach(p => {
     const team = data.teams[p.tid]?.abbrev || "FA";
+    const g = sumGoalieStats(p);
+
+    if (g.gp === 0) return;
 
     html += `
       <tr>
         <td>${p.firstName} ${p.lastName}</td>
         <td>${team}</td>
-        <td>${p.stats.gp}</td>
-        <td>${p.stats.gpGoalie?.w || 0}</td>
-        <td>${p.stats.gpGoalie?.l || 0}</td>
-        <td>${(p.stats.gpGoalie?.svPct || 0).toFixed(3)}</td>
-        <td>${(p.stats.gpGoalie?.gaa || 0).toFixed(2)}</td>
+        <td>${g.gp}</td>
+        <td>${g.w}</td>
+        <td>${g.l}</td>
+        <td>${g.svPct.toFixed(3)}</td>
+        <td>${g.gaa.toFixed(2)}</td>
       </tr>
     `;
   });
@@ -132,6 +135,7 @@ function renderGoalieStats(data) {
   html += "</table>";
   container.innerHTML = html;
 }
+
 
 /* =========================
    TEAMS GRID
@@ -181,7 +185,7 @@ function renderTeamRoster(data, tid) {
       <tr>
         <td>${p.firstName} ${p.lastName}</td>
         <td>${p.pos}</td>
-        <td>${p.ratings.ovr}</td>
+        <td>${p.ratings?.ovr ?? "-"}</td>
         <td>${p.age}</td>
       </tr>
     `;
