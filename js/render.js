@@ -21,7 +21,7 @@ function sumSkaterStats(player) {
     totals.g +=  goals || 0;
     totals.a += assists || 0;
     totals.pts += points || 0;
-    totals.hits += s.hits || 0;
+    totals.hits += s.hit || 0;
     totals.pim += s.pim || 0;
     totals.shots += s.s || 0;
   });
