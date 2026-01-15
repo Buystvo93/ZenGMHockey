@@ -1,49 +1,61 @@
 /* =========================
    SKATER STATS
 ========================= */
+function getSkaterSeasons(player) {
+  if (player.stats && player.stats.length) return player.stats;
+  if (player.statsPlayoffs && player.statsPlayoffs.length) return player.statsPlayoffs;
+  return [];
+}
+
 function sumSkaterStats(player) {
   const totals = { gp: 0, g: 0, a: 0, pts: 0, pm: 0, pim: 0 };
+  const seasons = getSkaterSeasons(player);
 
-  if (!player.stats) return totals;
+  seasons.forEach(s => {
+    if (!s.gpSkater) return;
 
-  player.stats.forEach(season => {
-    if (!season.gpSkater) return;
-
-    totals.gp += season.gpSkater.gp || 0;
-    totals.g += season.gpSkater.g || 0;
-    totals.a += season.gpSkater.a || 0;
-    totals.pts += season.gpSkater.pts || 0;
-    totals.pm += season.gpSkater.pm || 0;
-    totals.pim += season.gpSkater.pim || 0;
+    totals.gp += s.gpSkater.gp || 0;
+    totals.g += s.gpSkater.g || 0;
+    totals.a += s.gpSkater.a || 0;
+    totals.pts += s.gpSkater.pts || 0;
+    totals.pm += s.gpSkater.pm || 0;
+    totals.pim += s.gpSkater.pim || 0;
   });
 
   return totals;
 }
 
+
+function getGoalieSeasons(player) {
+  if (player.stats && player.stats.length) return player.stats;
+  if (player.statsPlayoffs && player.statsPlayoffs.length) return player.statsPlayoffs;
+  return [];
+}
+
 function sumGoalieStats(player) {
-  const totals = { gp: 0, w: 0, l: 0, sv: 0, gaa: 0, seasons: 0 };
+  let gp = 0, w = 0, l = 0, sv = 0, gaa = 0, count = 0;
+  const seasons = getGoalieSeasons(player);
 
-  if (!player.stats) return totals;
+  seasons.forEach(s => {
+    if (!s.gpGoalie) return;
 
-  player.stats.forEach(season => {
-    if (!season.gpGoalie) return;
-
-    totals.gp += season.gpGoalie.gp || 0;
-    totals.w += season.gpGoalie.w || 0;
-    totals.l += season.gpGoalie.l || 0;
-    totals.sv += season.gpGoalie.svPct || 0;
-    totals.gaa += season.gpGoalie.gaa || 0;
-    totals.seasons++;
+    gp += s.gpGoalie.gp || 0;
+    w += s.gpGoalie.w || 0;
+    l += s.gpGoalie.l || 0;
+    sv += s.gpGoalie.svPct || 0;
+    gaa += s.gpGoalie.gaa || 0;
+    count++;
   });
 
   return {
-    gp: totals.gp,
-    w: totals.w,
-    l: totals.l,
-    svPct: totals.seasons ? totals.sv / totals.seasons : 0,
-    gaa: totals.seasons ? totals.gaa / totals.seasons : 0
+    gp,
+    w,
+    l,
+    svPct: count ? sv / count : 0,
+    gaa: count ? gaa / count : 0
   };
 }
+
 
 
 function renderSkaterStats(data) {
@@ -70,7 +82,7 @@ function renderSkaterStats(data) {
     const team = data.teams[p.tid]?.abbrev || "FA";
     const s = sumSkaterStats(p);
 
-    if (s.gp === 0) return;
+    
 
     html += `
       <tr>
@@ -117,7 +129,7 @@ function renderGoalieStats(data) {
     const team = data.teams[p.tid]?.abbrev || "FA";
     const g = sumGoalieStats(p);
 
-    if (g.gp === 0) return;
+    
 
     html += `
       <tr>
