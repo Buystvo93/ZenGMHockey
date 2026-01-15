@@ -28,3 +28,34 @@ body {
   padding: 8px;
   border-bottom: 1px solid #ddd;
 }
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 15px;
+  padding: 20px;
+}
+
+.team-card {
+  background: white;
+  padding: 15px;
+  border-radius: 6px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.team-card:hover {
+  background: #eee;
+}
+
+.active {
+  border-bottom: 2px solid red;
+}
+
