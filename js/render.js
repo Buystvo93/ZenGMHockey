@@ -106,6 +106,8 @@ function renderSkaterStats(data) {
 
   html += "</table>";
   container.innerHTML = html;
+
+  makeTableSortable(container.querySelector("table"));
 }
 
 
@@ -152,6 +154,7 @@ function renderGoalieStats(data) {
 
   html += "</table>";
   container.innerHTML = html;
+  makeTableSortable(container.querySelector("table"));
 }
 
 
@@ -211,4 +214,46 @@ function renderTeamRoster(data, tid) {
 
   html += "</table>";
   container.innerHTML = html;
+  makeTableSortable(container.querySelector("table"));
 }
+
+function makeTableSortable(table) {
+  const headers = table.querySelectorAll("th");
+  const tbody = table.querySelector("tbody") || table;
+
+  headers.forEach((header, colIndex) => {
+    let asc = false;
+
+    header.style.cursor = "pointer";
+
+    header.addEventListener("click", () => {
+      asc = !asc;
+
+      // Remove arrows from other headers
+      headers.forEach(h => h.textContent = h.textContent.replace(" ▲", "").replace(" ▼", ""));
+
+      header.textContent += asc ? " ▲" : " ▼";
+
+      const rows = Array.from(tbody.querySelectorAll("tr")).slice(1);
+
+      rows.sort((a, b) => {
+        let A = a.children[colIndex].textContent.trim();
+        let B = b.children[colIndex].textContent.trim();
+
+        const numA = parseFloat(A.replace("%", ""));
+        const numB = parseFloat(B.replace("%", ""));
+
+        if (!isNaN(numA) && !isNaN(numB)) {
+          return asc ? numA - numB : numB - numA;
+        }
+
+        return asc
+          ? A.localeCompare(B)
+          : B.localeCompare(A);
+      });
+
+      rows.forEach(row => tbody.appendChild(row));
+    });
+  });
+}
+
