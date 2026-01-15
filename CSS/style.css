@@ -170,3 +170,12 @@ section h2 {
     padding: 16px;
   }
 }
+
+.stats-table th {
+  user-select: none;
+}
+
+.stats-table th:hover {
+  background: #222;
+}
+
