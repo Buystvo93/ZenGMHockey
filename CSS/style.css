@@ -1,61 +1,172 @@
+/* =========================
+   GLOBAL
+========================= */
+* {
+  box-sizing: border-box;
+}
+
 body {
-  font-family: Arial, sans-serif;
   margin: 0;
-  background: #f4f4f4;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: #f2f4f7;
+  color: #111;
 }
 
+h1, h2 {
+  margin: 0;
+}
+
+/* =========================
+   NAVBAR (NHL-STYLE)
+========================= */
 .navbar {
-  background: #111;
-  color: white;
-  padding: 14px 20px;
+  background: #0b0b0b;
   display: flex;
-  gap: 25px;
+  align-items: center;
+  gap: 28px;
+  padding: 14px 28px;
 }
 
+.navbar a {
+  color: #ddd;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 15px;
+  padding-bottom: 4px;
+}
+
+.navbar a:hover {
+  color: #fff;
+}
+
+.navbar a.active {
+  color: #fff;
+  border-bottom: 3px solid #d2001c;
+}
+
+/* =========================
+   PAGE HEADER
+========================= */
+.page-header {
+  background: white;
+  padding: 24px 28px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+}
+
+.page-header h1 {
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.page-header input[type="file"] {
+  font-size: 14px;
+}
+
+/* =========================
+   SECTIONS
+========================= */
+section {
+  margin: 30px 28px;
+}
+
+section h2 {
+  font-size: 20px;
+  margin-bottom: 12px;
+}
+
+/* =========================
+   TABLES (CLEAN NHL LOOK)
+========================= */
 .stats-table {
   width: 100%;
   border-collapse: collapse;
   background: white;
+  border-radius: 6px;
+  overflow: hidden;
 }
 
 .stats-table th {
   background: #111;
-  color: white;
-  padding: 10px;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 12px 10px;
+  text-align: left;
+  text-transform: uppercase;
 }
 
 .stats-table td {
-  padding: 8px;
-  border-bottom: 1px solid #ddd;
+  padding: 10px;
+  font-size: 14px;
+  border-bottom: 1px solid #eee;
 }
 
-.page-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px;
+.stats-table tr:hover td {
+  background: #f6f6f6;
 }
 
+.stats-table tr:last-child td {
+  border-bottom: none;
+}
+
+/* =========================
+   TEAM GRID
+========================= */
 .team-grid {
+  padding: 28px;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 15px;
-  padding: 20px;
+  gap: 18px;
 }
 
 .team-card {
   background: white;
-  padding: 15px;
-  border-radius: 6px;
+  border-radius: 8px;
+  padding: 22px 14px;
   text-align: center;
+  font-weight: 700;
   cursor: pointer;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 .team-card:hover {
-  background: #eee;
+  transform: translateY(-4px);
+  box-shadow: 0 10px 22px rgba(0,0,0,0.12);
 }
 
-.active {
-  border-bottom: 2px solid red;
+/* =========================
+   TEAM ROSTER
+========================= */
+#teamName {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 10px;
 }
 
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 700px) {
+  .navbar {
+    gap: 16px;
+    padding: 12px 18px;
+  }
+
+  .page-header {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  section {
+    margin: 20px 16px;
+  }
+
+  .team-grid {
+    padding: 16px;
+  }
+}
