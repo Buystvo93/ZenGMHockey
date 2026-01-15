@@ -8,19 +8,22 @@ function getSkaterSeasons(player) {
 }
 
 function sumSkaterStats(player) {
-  const totals = { gp: 0, g: 0, a: 0, pts: 0, pm: 0, pim: 0 };
+  const totals = { gp: 0, g: 0, a: 0, pts: 0, hits: 0, pim: 0, shots: 0 };
   const seasons = getSkaterSeasons(player);
   
   seasons.forEach(s => {
     if (!s.gpSkater) return;
     const goals = (s.evG + s.shG + s.ppG)
+    const assists = (s.evA + s.shA + s.ppA)
+    const points = (goals + assists)
      
     totals.gp += s.gpSkater || 0;
     totals.g +=  goals || 0;
-    totals.a += s.gpSkater.a || 0;
-    totals.pts += s.gpSkater.pts || 0;
-    totals.pm += s.gpSkater.pm || 0;
-    totals.pim += s.gpSkater.pim || 0;
+    totals.a += assists || 0;
+    totals.pts += points || 0;
+    totals.hits += s.hits || 0;
+    totals.pim += s.pim || 0;
+    totals.shots += s.s || 0;
   });
 
   return totals;
