@@ -10,10 +10,11 @@ function getSkaterSeasons(player) {
 function sumSkaterStats(player) {
   const totals = { gp: 0, g: 0, a: 0, pts: 0, pm: 0, pim: 0 };
   const seasons = getSkaterSeasons(player);
-  const goals = (s.evG + s.shG + s.ppG)
+  
   seasons.forEach(s => {
     if (!s.gpSkater) return;
-
+    const goals = (s.evG + s.shG + s.ppG)
+     
     totals.gp += s.gpSkater || 0;
     totals.g +=  goals || 0;
     totals.a += s.gpSkater.a || 0;
