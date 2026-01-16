@@ -48,18 +48,18 @@ function sumGoalieStats(player) {
   const seasons = getGoalieSeasons(player);
 
   seasons.forEach(s => {
-    // Skip skater seasons
-    if (!s.gp || (s.sv === undefined && s.ga === undefined)) return;
+    // Only count goalie seasons
+    if (!s.gpGoalie || s.gpGoalie === 0) return;
 
     gp += s.gpGoalie || 0;
-    w += s.w || 0;
-    l += s.l || 0;
-    otl += s.otl || 0;
+    w += s.gW || 0;
+    l += s.gL || 0;
+    otl += s.gOTL || 0;
 
     sv += s.sv || 0;
     ga += s.ga || 0;
 
-    // If sa exists, use it; otherwise derive it
+    // Zen GM sometimes omits sa
     sa += s.sa ?? ((s.sv || 0) + (s.ga || 0));
   });
 
