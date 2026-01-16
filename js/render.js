@@ -37,7 +37,7 @@ function getGoalieSeasons(player) {
 }
 
 function sumGoalieStats(player) {
-  let gp = 0, w = 0, l = 0, sv = 0, gaa = 0, count = 0;
+  let gp = 0, w = 0, l = 0, otl = 0, sv = 0, ga = 0, sa = 0, gaa = 0, svp = 0, count = 0;
   const seasons = getGoalieSeasons(player);
 
   seasons.forEach(s => {
