@@ -43,11 +43,15 @@ function sumGoalieStats(player) {
   seasons.forEach(s => {
     if (!s.gpGoalie) return;
 
-    gp += s.gpGoalie.gp || 0;
-    w += s.gpGoalie.w || 0;
-    l += s.gpGoalie.l || 0;
-    sv += s.gpGoalie.svPct || 0;
-    gaa += s.gpGoalie.gaa || 0;
+    gp += s.gpGoalie || 0;
+    w += s.gW || 0;
+    l += s.gL || 0;
+    otl += s.gOTL || 0;
+    sv += s.sv || 0;
+    ga += s.ga || 0;
+    sa += ga + sv || 0;
+    gaa = ga / gp || 0;
+    svp =  sv / sa || 0;
     count++;
   });
 
@@ -55,8 +59,12 @@ function sumGoalieStats(player) {
     gp,
     w,
     l,
-    svPct: count ? sv / count : 0,
-    gaa: count ? gaa / count : 0
+    otl,
+    sv,
+    ga,
+    sa,
+    gaa,
+    svp 
   };
 }
 
@@ -128,6 +136,10 @@ function renderGoalieStats(data) {
         <th>GP</th>
         <th>W</th>
         <th>L</th>
+        <th>OTL</th>
+        <th>SA</th>
+        <th>SV</th>
+        <th>GA</th>
         <th>SV%</th>
         <th>GAA</th>
       </tr>
@@ -146,7 +158,11 @@ function renderGoalieStats(data) {
         <td>${g.gp}</td>
         <td>${g.w}</td>
         <td>${g.l}</td>
-        <td>${g.svPct.toFixed(3)}</td>
+        <td>${g.otl}</td>
+        <td>${g.sa}</td>
+        <td>${g.sv}</td>
+        <td>${g.ga}</td>
+        <td>${g.svp.toFixed(3)}</td>
         <td>${g.gaa.toFixed(2)}</td>
       </tr>
     `;
