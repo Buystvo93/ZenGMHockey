@@ -37,23 +37,34 @@ function getGoalieSeasons(player) {
 }
 
 function sumGoalieStats(player) {
-  let gp = 0, w = 0, l = 0, otl = 0, sv = 0, ga = 0, sa = 0, gaa = 0, svp = 0, count = 0;
+  let gp = 0;
+  let w = 0;
+  let l = 0;
+  let otl = 0;
+  let sv = 0;
+  let ga = 0;
+  let sa = 0;
+
   const seasons = getGoalieSeasons(player);
 
   seasons.forEach(s => {
-    if (!s.gpGoalie) return;
+    // Skip skater seasons
+    if (!s.gp || (s.sv === undefined && s.ga === undefined)) return;
 
     gp += s.gpGoalie || 0;
-    w += s.gW || 0;
-    l += s.gL || 0;
-    otl += s.gOTL || 0;
+    w += s.w || 0;
+    l += s.l || 0;
+    otl += s.otl || 0;
+
     sv += s.sv || 0;
     ga += s.ga || 0;
-    sa += ga + sv || 0;
-    gaa = ga / gp || 0;
-    svp =  sv / sa || 0;
-    count++;
+
+    // If sa exists, use it; otherwise derive it
+    sa += s.sa ?? ((s.sv || 0) + (s.ga || 0));
   });
+
+  const gaa = gp ? (ga / gp) : 0;
+  const svp = sa ? (sv / sa) : 0;
 
   return {
     gp,
@@ -64,9 +75,10 @@ function sumGoalieStats(player) {
     ga,
     sa,
     gaa,
-    svp 
+    svp
   };
 }
+
 
 
 
